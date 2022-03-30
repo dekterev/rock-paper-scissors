@@ -1,0 +1,12 @@
+.App {
+  display: flex;
+  flex-direction: column;
+  color: white;
+  height: 100%;
+  min-height: 100vh;
+  background: linear-gradient(rgb(70, 69, 69), black);
+}
+
+.error {
+  text-align: center;
+}

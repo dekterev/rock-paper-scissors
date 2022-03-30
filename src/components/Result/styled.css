@@ -1,0 +1,18 @@
+ul {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+  background-color: black;
+  padding: 5px;
+  margin: 0;
+}
+
+li {
+  list-style-type: none;
+  font-weight: bold;
+  text-transform: uppercase;
+}
+
+#name {
+  color: yellow;
+}
