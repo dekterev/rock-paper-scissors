@@ -2,11 +2,14 @@ import './styled.css'
 
 interface PlayersType {
   players: string[]
-  winner: string
-  win: number
+  data: {
+    winner: string
+    win: number
+  }
 }
 
-export const Battle = ({ players, winner, win }: PlayersType) => {
+export const Battle = ({ players, data }: PlayersType) => {
+  const { winner, win } = data
   return (
     <div className='battle'>
       <h1

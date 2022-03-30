@@ -24,10 +24,11 @@ function App() {
   const [play, setPlay] = useState(true)
   const [error, setError] = useState('')
   const [players, setPlayers] = useState<string[]>([])
-  const [winner, setWinner] = useState('')
+  const [winner, setWinner] = useState({ winner: '', win: 0 })
 
   const handleClickBet = (position: string) => {
     if (!play) return
+    setError('')
     const newPositions = positionsState.map((pos: PositionType) => {
       getPlayers(players, position)
       if (pos.position === position) {
@@ -56,8 +57,8 @@ function App() {
     if (!play) {
       setPlay(true)
       setError('')
-      setWinner('')
-      setMenuBar({ ...menuBar, balance: menuBar.balance + menuBar.win, bet: 0 })
+      setMenuBar({ ...menuBar, balance: menuBar.balance, bet: 0 })
+      setWinner({ winner: '', win: 0 })
       setPlayers([])
       setPositionsState(
         positions.map((pos: PositionType) => ({
@@ -72,16 +73,20 @@ function App() {
 
     const { winner, allPositions } = randomiseWin(positionsState)
     setPositionsState(allPositions)
-    setWinner(winner)
     const bonus = getBonus(positionsState, menuBar)
-    setMenuBar({ ...bonus })
+    setWinner({ winner, win: bonus })
+    setMenuBar({
+      ...menuBar,
+      balance: menuBar.balance + bonus,
+      win: bonus + menuBar.win,
+    })
     setPlay(false)
   }
 
   return (
     <div className='App'>
       <Result menu={menuBar} />
-      <Battle players={players} winner={winner} win={menuBar.win} />
+      <Battle players={players} data={winner} />
       <h3
         style={{
           visibility: !players.length ? 'visible' : 'hidden',
